@@ -78,20 +78,15 @@ create table cronograma_pago(
 insert into carrera (nombre) values ('Ingenieria de Software'), ('Ciberseguridad');
 insert into ciclo (nombre_ciclo) values ('I'), ('II'), ('III'), ('IV'), ('V'), ('VI');
 
--- Configuración de costos mensuales (Software Ciclo I = 450, Ciclo II = 500)
 insert into configuracion_pago (id_carrera, id_ciclo, monto_mensual) values (1, 1, 450.00), (1, 2, 500.00);
 
--- Cursos para Software Ciclo I
 insert into curso (nombre, id_carrera, id_ciclo) values ('Algoritmos', 1, 1), ('Fundamentos TI', 1, 1);
 
--- Estudiante en Ciclo I de Software
 insert into estudiante (correo_institucional, id_estudiante, nombres, apellidos, dni, pass, id_carrera, id_ciclo) 
 values ('pedro.lapa@senati.pe', '1000001', 'pedro', 'lapa', '70001020', '12345', 1, 1);
 
--- Notas para Pedro (Una calificada, una pendiente)
 insert into nota (id_estudiante, id_curso, nota_estudiante) values (1, 1, 17.5), (1, 2, null);
 
--- Pago generado para Pedro basado en su configuración
 insert into cronograma_pago (id_estudiante, mes_pago, monto, fecha_vencimiento) 
 values (1, 'mayo', 450.00, '2026-05-30');
 
