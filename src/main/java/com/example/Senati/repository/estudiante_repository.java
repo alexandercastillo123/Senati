@@ -40,4 +40,12 @@ public interface estudiante_repository extends JpaRepository<estudiante, Integer
 
     @Query(value = "CALL sp_cumpleaños_mes()", nativeQuery = true)
     List<Map<String, Object>> verCumpleaños();
+
+    @Query(value = "CALL sp_promedio_ciclo(:id_estudiante)", nativeQuery = true)
+    List<Map<String, Object>> verPromedioCiclo(@Param("id_estudiante") Integer id_estudiante);
+
+    @org.springframework.data.jpa.repository.Modifying
+    @org.springframework.transaction.annotation.Transactional
+    @Query(value = "CALL sp_cambiar_pass(:id_estudiante, :nueva_pass)", nativeQuery = true)
+    void cambiarPass(@Param("id_estudiante") Integer id_estudiante, @Param("nueva_pass") String nueva_pass);
 }

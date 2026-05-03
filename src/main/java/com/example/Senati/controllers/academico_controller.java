@@ -27,4 +27,24 @@ public class academico_controller {
     public List<Map<String, Object>> getHorario(@RequestParam Integer id) {
         return service.miHorario(id);
     }
+
+    @GetMapping("/promedio")
+    public List<Map<String, Object>> getPromedio(@RequestParam Integer id) {
+        return service.promedioCiclo(id);
+    }
+
+    @GetMapping("/carreras")
+    public List<Map<String, Object>> getCarreras() {
+        return service.listarCarreras();
+    }
+
+    @GetMapping("/ciclos")
+    public List<Map<String, Object>> getCiclos() {
+        return service.listarCiclos();
+    }
+
+    @GetMapping("/resumen")
+    public List<Map<String, Object>> getResumen() {
+        return service.resumenCarreras();
+    }
 }

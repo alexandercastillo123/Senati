@@ -31,4 +31,8 @@ public class estudiante_service {
     public List<Map<String, Object>> obtenerCumpleaños() {
         return repo.verCumpleaños();
     }
+
+    public void cambiarPass(Integer idEstudiante, String nuevaPass) {
+        repo.cambiarPass(idEstudiante, nuevaPass);
+    }
 }

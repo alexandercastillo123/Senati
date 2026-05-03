@@ -27,4 +27,16 @@ public class estudiante_controller {
     public List<Map<String, Object>> buscarDni(@RequestParam String dni) {
         return service.buscarPorDni(dni);
     }
+
+    @GetMapping("/cumpleanos")
+    public List<Map<String, Object>> getCumpleanos() {
+        return service.obtenerCumpleaños();
+    }
+
+    @PostMapping("/cambiar_pass")
+    public void cambiarPass(@RequestBody Map<String, String> datos) {
+        Integer id = Integer.parseInt(datos.get("id"));
+        String nuevaPass = datos.get("nueva_pass");
+        service.cambiarPass(id, nuevaPass);
+    }
 }
