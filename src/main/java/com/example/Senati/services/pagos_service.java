@@ -13,7 +13,7 @@ public class pagos_service {
     private cronograma_pago_repository repo;
 
     public List<Map<String, Object>> historialPagos(Integer id) {
-        return repo.listarCronogramasPorEstudiante(id);
+        return repo.listarCronogramasProcedimiento(id);
     }
 
     public List<Map<String, Object>> deudasPendientes(Integer idEstudiante) {

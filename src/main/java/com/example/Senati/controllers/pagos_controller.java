@@ -13,13 +13,13 @@ public class pagos_controller {
     @Autowired
     private pagos_service service;
 
-    @GetMapping("/historial")
-    public List<Map<String, Object>> getHistorial(@RequestParam Integer id) {
+    @GetMapping("/historial/{id}")
+    public List<Map<String, Object>> getHistorial(@PathVariable("id") Integer id) {
         return service.historialPagos(id);
     }
 
-    @GetMapping("/pendientes")
-    public List<Map<String, Object>> getPendientes(@RequestParam Integer id) {
+    @GetMapping("/pendientes/{id}")
+    public List<Map<String, Object>> getPendientes(@PathVariable("id") Integer id) {
         return service.deudasPendientes(id);
     }
 }

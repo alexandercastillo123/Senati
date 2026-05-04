@@ -60,7 +60,7 @@ create table nota(
     id int primary key auto_increment,
     id_estudiante int,
     id_curso int,
-    nota_estudiante double null, -- NULL significa que el docente aún no califica
+    nota_estudiante double null,
     constraint fk_nota_estudiante foreign key (id_estudiante) references estudiante(id),
     constraint fk_nota_curso foreign key (id_curso) references curso(id)
 );
@@ -80,15 +80,45 @@ insert into ciclo (nombre_ciclo) values ('I'), ('II'), ('III'), ('IV'), ('V'), (
 
 insert into configuracion_pago (id_carrera, id_ciclo, monto_mensual) values (1, 1, 450.00), (1, 2, 500.00);
 
-insert into curso (nombre, id_carrera, id_ciclo) values ('Algoritmos', 1, 1), ('Fundamentos TI', 1, 1);
+insert into curso (nombre, id_carrera, id_ciclo) values 
+('Algoritmos', 1, 1), 
+('Fundamentos TI', 1, 1),
+('Redes Básicas', 2, 1), 
+('Seguridad Informática', 2, 1);
 
-insert into estudiante (correo_institucional, id_estudiante, nombres, apellidos, dni, pass, id_carrera, id_ciclo) 
-values ('pedro.lapa@senati.pe', '1000001', 'pedro', 'lapa', '70001020', '12345', 1, 1);
+insert into estudiante (correo_institucional, id_estudiante, nombres, apellidos, dni, pass, fecha_nacimiento, id_carrera, id_ciclo) values 
+('pedro.lapa@senati.pe', '1000001', 'pedro', 'lapa', '70001020', '12345', '2005-05-15', 1, 1),
+('maria.gomez@senati.pe', '1000002', 'maria', 'gomez', '70001021', '12345', '2004-10-20', 1, 1),
+('juan.perez@senati.pe', '1000003', 'juan', 'perez', '70001022', '12345', '2003-05-05', 2, 1),
+('ana.rojas@senati.pe', '1000004', 'ana', 'rojas', '70001023', '12345', '2005-02-14', 1, 2),
+('luis.torres@senati.pe', '1000005', 'luis', 'torres', '70001024', '12345', '2004-05-28', 2, 1);
 
-insert into nota (id_estudiante, id_curso, nota_estudiante) values (1, 1, 17.5), (1, 2, null);
+insert into horario (dia, hora_inicio, hora_fin, id_curso, id_estudiante) values
+('lunes', '08:00', '10:00', 1, 1),
+('miercoles', '10:00', '12:00', 2, 1),
+('lunes', '08:00', '10:00', 1, 2),
+('jueves', '14:00', '16:00', 3, 3),
+('viernes', '16:00', '18:00', 4, 3);
 
-insert into cronograma_pago (id_estudiante, mes_pago, monto, fecha_vencimiento) 
-values (1, 'mayo', 450.00, '2026-05-30');
+insert into nota (id_estudiante, id_curso, nota_estudiante) values 
+(1, 1, 17.5), 
+(1, 2, null),
+(2, 1, 14.0),
+(2, 2, 16.5),
+(3, 3, 18.0),
+(3, 4, 15.0),
+(4, 1, 19.0),
+(5, 3, 12.0);
+
+insert into cronograma_pago (id_estudiante, mes_pago, monto, fecha_vencimiento, estado) values 
+(1, 'mayo', 450.00, '2026-05-30', 'pendiente'),
+(1, 'abril', 450.00, '2026-04-30', 'cancelado'),
+(2, 'mayo', 450.00, '2026-05-30', 'pendiente'),
+(2, 'abril', 450.00, '2026-04-30', 'cancelado'),
+(3, 'mayo', 500.00, '2026-05-30', 'pendiente'),
+(3, 'marzo', 500.00, '2026-03-30', 'vencido'),
+(4, 'mayo', 500.00, '2026-05-30', 'cancelado'),
+(5, 'abril', 500.00, '2026-04-30', 'vencido');
 
 delimiter //
 
@@ -145,12 +175,11 @@ begin
     where e.id = _id_estudiante;
 end //
 
-create procedure sp_ver_compañeros(in _id_estudiante int)
+create procedure sp_ver_compañeros(in _id_carrera int, in _id_ciclo int)
 begin
-    select e2.nombres, e2.apellidos, e2.correo_institucional 
-    from estudiante e1
-    join estudiante e2 on e1.id_carrera = e2.id_carrera and e1.id_ciclo = e2.id_ciclo
-    where e1.id = _id_estudiante and e2.id <> _id_estudiante;
+    select nombres, apellidos, correo_institucional 
+    from estudiante 
+    where id_carrera = _id_carrera and id_ciclo = _id_ciclo;
 end //
 
 create procedure sp_listar_carreras()

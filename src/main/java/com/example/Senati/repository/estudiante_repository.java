@@ -1,6 +1,8 @@
 package com.example.Senati.repository;
 
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
@@ -17,8 +19,8 @@ public interface estudiante_repository extends JpaRepository<estudiante, Integer
     @Query(value = "CALL sp_perfil_estudiante(:id_estudiante)", nativeQuery = true)
     List<Map<String, Object>> verMiPerfil(@Param("id_estudiante") Integer id_estudiante);
 
-    @Query(value = "CALL sp_ver_compañeros(:id_estudiante)", nativeQuery = true)
-    List<Map<String, Object>> listarCompañeros(@Param("id_estudiante") Integer id_estudiante);
+    @Query(value = "CALL sp_ver_compañeros(:id_carrera, :id_ciclo)", nativeQuery = true)
+    List<Map<String, Object>> listarCompañeros(@Param("id_carrera") Integer id_carrera, @Param("id_ciclo") Integer id_ciclo);
 
     @Query(value = "CALL sp_ver_mis_cursos(:id_estudiante)", nativeQuery = true)
     List<Map<String, Object>> verMisCursos(@Param("id_estudiante") Integer id_estudiante);
@@ -44,8 +46,8 @@ public interface estudiante_repository extends JpaRepository<estudiante, Integer
     @Query(value = "CALL sp_promedio_ciclo(:id_estudiante)", nativeQuery = true)
     List<Map<String, Object>> verPromedioCiclo(@Param("id_estudiante") Integer id_estudiante);
 
-    @org.springframework.data.jpa.repository.Modifying
-    @org.springframework.transaction.annotation.Transactional
+    @Modifying
+    @Transactional
     @Query(value = "CALL sp_cambiar_pass(:id_estudiante, :nueva_pass)", nativeQuery = true)
     void cambiarPass(@Param("id_estudiante") Integer id_estudiante, @Param("nueva_pass") String nueva_pass);
 }

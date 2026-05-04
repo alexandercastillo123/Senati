@@ -13,23 +13,23 @@ public class academico_controller {
     @Autowired
     private academico_service service;
 
-    @GetMapping("/cursos")
-    public List<Map<String, Object>> getCursos(@RequestParam Integer id) {
+    @GetMapping("/cursos/{id}")
+    public List<Map<String, Object>> getCursos(@PathVariable("id") Integer id) {
         return service.misCursos(id);
     }
 
-    @GetMapping("/notas")
-    public List<Map<String, Object>> getNotas(@RequestParam Integer id) {
+    @GetMapping("/notas/{id}")
+    public List<Map<String, Object>> getNotas(@PathVariable("id") Integer id) {
         return service.misNotas(id);
     }
 
-    @GetMapping("/horario")
-    public List<Map<String, Object>> getHorario(@RequestParam Integer id) {
+    @GetMapping("/horario/{id}")
+    public List<Map<String, Object>> getHorario(@PathVariable("id") Integer id) {
         return service.miHorario(id);
     }
 
-    @GetMapping("/promedio")
-    public List<Map<String, Object>> getPromedio(@RequestParam Integer id) {
+    @GetMapping("/promedio/{id}")
+    public List<Map<String, Object>> getPromedio(@PathVariable("id") Integer id) {
         return service.promedioCiclo(id);
     }
 

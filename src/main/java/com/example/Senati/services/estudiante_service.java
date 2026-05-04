@@ -20,8 +20,8 @@ public class estudiante_service {
         return repo.verMiPerfil(idEstudiante);
     }
 
-    public List<Map<String, Object>> obtenerCompaneros(Integer idEstudiante) {
-        return repo.listarCompañeros(idEstudiante);
+    public List<Map<String, Object>> obtenerCompaneros(Integer idCarrera, Integer idCiclo) {
+        return repo.listarCompañeros(idCarrera, idCiclo);
     }
 
     public List<Map<String, Object>> buscarPorDni(String dni) {

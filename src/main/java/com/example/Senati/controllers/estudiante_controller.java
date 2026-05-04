@@ -13,18 +13,18 @@ public class estudiante_controller {
     @Autowired
     private estudiante_service service;
 
-    @GetMapping("/perfil")
-    public List<Map<String, Object>> getPerfil(@RequestParam Integer id) {
+    @GetMapping("/perfil/{id}")
+    public List<Map<String, Object>> getPerfil(@PathVariable("id") Integer id) {
         return service.obtenerPerfil(id);
     }
 
-    @GetMapping("/companeros")
-    public List<Map<String, Object>> getCompaneros(@RequestParam Integer id) {
-        return service.obtenerCompaneros(id);
+    @GetMapping("/companeros/{id_carrera}/{id_ciclo}")
+    public List<Map<String, Object>> getCompaneros(@PathVariable("id_carrera") Integer idCarrera, @PathVariable("id_ciclo") Integer idCiclo) {
+        return service.obtenerCompaneros(idCarrera, idCiclo);
     }
 
-    @GetMapping("/buscar")
-    public List<Map<String, Object>> buscarDni(@RequestParam String dni) {
+    @GetMapping("/buscar/{dni}")
+    public List<Map<String, Object>> buscarDni(@PathVariable("dni") String dni) {
         return service.buscarPorDni(dni);
     }
 
